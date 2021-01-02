@@ -23,7 +23,7 @@ Double_t funcGaus2d(Double_t* x, Double_t* p) {
   return y;
 }
 
-Double_t funcGaus2d_2(Double_t* x, Double_t* p) {
+Double_t funcGaus2dx2(Double_t* x, Double_t* p) {
   Double_t y1 = funcGaus2d(x, p);
   Double_t y2 = funcGaus2d(x, p+5);
   return y1 + y2;
