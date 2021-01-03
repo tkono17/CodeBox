@@ -19,13 +19,19 @@ public:
   Double_t operator()(const Double_t* pars);
 
   void setFunction(TF1* f) { mFunction = f; }
+  void setUsePoisson(bool x) { mUsePoisson = x; }
+  
   void setHistData(const TH1* h) { mHistData = h; }
 
+  void setPointData(const std::vector<DoubleArray1>& data) {
+    mPointData = data;
+  }
   void addPoint(Double_t x);
   void addPoint(const DoubleArray1& point);
   
 protected:
   TF1* mFunction;
+  bool mUsePoisson;
   //
   const TH1* mHistData;
   std::vector<DoubleArray1> mPointData;
