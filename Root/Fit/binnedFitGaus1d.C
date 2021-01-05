@@ -37,7 +37,7 @@ void binnedFitGaus1d() {
   TF1* modelFunc = getFunction();
   TH1* h = generateHist(modelFunc, 100);
   h->Draw();
-  //  h->Fit(modelFunc, "L");
+   h->Fit(modelFunc, "L");
 
   Likelihood1d lh(modelFunc, h);
 
@@ -74,7 +74,7 @@ void binnedFitGaus1d() {
   xs = minimizer->X();
   char s[100];
   std::sprintf(s, "L(%10.5f, %10.5f, %10.5f) => %10.5f",
-	       xs[0], xs[1], xs[2], minimizer->MinValue());
+  	       xs[0], xs[1], xs[2], minimizer->MinValue());
   std::cout << s << std::endl;
   float xmin = modelFunc->GetXmin();
   float xmax = modelFunc->GetXmax();

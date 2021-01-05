@@ -1,17 +1,19 @@
 
 void initCodeBox(const std::string& CBDir="../dev/CodeBox") {
   std::vector<std::string> packs = { "Base", "Hist", "Func", "Fit" };
-  char s[2000];
+  char s[2000], s1[2000];
 
   std::sprintf(s, "%s", gROOT->GetMacroPath());
   for (auto x: packs) {
-    std::sprintf(s, "%s/Root/%s:%s", CBDir.c_str(), x.c_str(), s);
+    std::strcpy(s1, s);
+    std::sprintf(s, "%s/Root/%s:%s", CBDir.c_str(), x.c_str(), s1);
   }
   gROOT->SetMacroPath(s);
 
   std::sprintf(s, "%s", gSystem->GetDynamicPath());
   for (auto x: packs) {
-    std::sprintf(s, "%s/Root/%s:%s", CBDir.c_str(), x.c_str(), s);
+    std::strcpy(s1, s);
+    std::sprintf(s, "%s/Root/%s:%s", CBDir.c_str(), x.c_str(), s1);
   }
   gSystem->SetDynamicPath(s);
 
@@ -22,13 +24,4 @@ void initCodeBox(const std::string& CBDir="../dev/CodeBox") {
   //std::cout << "MacroPath: " << gROOT->GetMacroPath() << std::endl;
   //std::cout << "DynamicPath: " << gSystem->GetDynamicPath() << std::endl;
 
-  std::vector<std::string> macroLibs =
-    {
-     "FuncGaus.cxx+",
-     "Likelihood1d.cxx+"
-    };
-  for (auto x: macroLibs) {
-    gROOT->LoadMacro(x.c_str());
-  }
-    
 }
