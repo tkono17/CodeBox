@@ -11,8 +11,8 @@ void generatePoint(double& x, double& y) {
 }
 
 void generateAngles(double& theta, double& phi) {
-  theta = -100.0;
-  phi = -100.0;
+  theta = 0.0;
+  phi = 0.0;
 }
 
 bool intersectionAtZ0(double x, double y, double theta, double phi, double d,
@@ -22,8 +22,8 @@ bool intersectionAtZ0(double x, double y, double theta, double phi, double d,
 }
 
 int main(int argc, char* argv[]) {
-  int npoints=10000;
-  int nparticles=10000;
+  int npoints=1000;
+  int nparticles=1000;
   int ipoint=0;
   int iparticle=0;
   double w=60.0;
@@ -33,8 +33,8 @@ int main(int argc, char* argv[]) {
   double x, y;
   double theta, phi;
   double x0, y0;
-  int nangles=0;
-  double dcostheta=2.0/nangles;
+  int nangles=100;
+  double dcostheta=1.0/nangles;
   std::vector<int> countsGenerated;
   std::vector<int> countsDetected;
   countsGenerated.assign(nangles, 0);
@@ -43,6 +43,9 @@ int main(int argc, char* argv[]) {
   double costheta = 0;
   bool hit=false;
 
+  std::cout << "Generate " << npoints << " points on the top surface"
+	    << " and " << nparticles << " directions" << std::endl;
+
   for (ipoint=0; ipoint<npoints; ipoint++) {
     generatePoint(x, y);
     for (iparticle=0; iparticle<nparticles; ++iparticle) {
@@ -50,6 +53,9 @@ int main(int argc, char* argv[]) {
       hit = intersectionAtZ0(x, y, theta, phi, d, x0, y0);
       costheta = std::cos(theta);      
       costhetaBin = (costheta+1.0)/dcostheta;
+      if (costhetaBin >= nangles) {
+	costhetaBin = nangles - 1;
+      }
       countsGenerated[costhetaBin] += 1;
       if (hit) {
 	countsDetected[costhetaBin] += 1;
