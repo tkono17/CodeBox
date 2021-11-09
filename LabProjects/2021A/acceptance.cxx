@@ -3,6 +3,7 @@
 */
 #include <iostream>
 #include <cmath>
+#include <vector>
 
 void generatePoint(double& x, double& y) {
   x = -100.0;
@@ -33,16 +34,27 @@ int main(int argc, char* argv[]) {
   double theta, phi;
   double x0, y0;
   int nangles=0;
-  double dtheta=std::M_PI/nangles;
+  double dcostheta=2.0/nangles;
   std::vector<int> countsGenerated;
   std::vector<int> countsDetected;
   countsGenerated.assign(nangles, 0);
   countsDetected.assign(nangles, 0);
+  int costhetaBin=0;
+  double costheta = 0;
+  bool hit=false;
 
-  for (ipoint=0; ipoint<npoints; points) {
-    generatePoints(x, y);
-    generateAngles(theta, phi);
-    intersectionAtZ0(x, y, theta, phi, d, x0, y0);
+  for (ipoint=0; ipoint<npoints; ipoint++) {
+    generatePoint(x, y);
+    for (iparticle=0; iparticle<nparticles; ++iparticle) {
+      generateAngles(theta, phi);
+      hit = intersectionAtZ0(x, y, theta, phi, d, x0, y0);
+      costheta = std::cos(theta);      
+      costhetaBin = (costheta+1.0)/dcostheta;
+      countsGenerated[costhetaBin] += 1;
+      if (hit) {
+	countsDetected[costhetaBin] += 1;
+      }
+    }
   }
 
   return 0;
