@@ -13,7 +13,7 @@ void generatePoint(double& x, double& y) {
 }
 
 void generateAngles(double& theta, double& phi) {
-  theta = 0.0;
+  theta = 10.0;
   phi = 0.0;
 }
 
