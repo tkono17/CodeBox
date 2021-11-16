@@ -48,9 +48,9 @@ int main(int argc, char* argv[]) {
   std::random_device seed_gen;
   std::default_random_engine engine(seed_gen());
 
-  std::uniform_real_distribution<> xDist(-w/2.0, w/2.0); 
-  std::uniform_real_distribution<> yDist(-l/2.0, l/2.0); 
-  std::uniform_real_distribution<> cosThetaDist(0.0, 1.0); 
+  std::uniform_real_distribution<> xDist(-w/2.0, w/2.0);
+  std::uniform_real_distribution<> yDist(-l/2.0, l/2.0);
+  std::uniform_real_distribution<> cosThetaDist(0.0, 1.0);
   std::uniform_real_distribution<> phiDist(0, pi);
 
   std::cout << "Generate " << npoints << " points on the top surface"
