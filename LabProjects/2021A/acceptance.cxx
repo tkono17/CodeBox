@@ -8,7 +8,7 @@
 #include <random>
 
 void generatePoint(double& x, double& y) {
-  x = -100.0;
+  x = -10.0;
   y = -100.0;
 }
 
