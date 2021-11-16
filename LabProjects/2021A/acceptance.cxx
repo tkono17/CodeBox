@@ -73,9 +73,10 @@ int main(int argc, char* argv[]) {
       if (hit) {
 	countsDetected[costhetaBin] += 1;
       }
-      // fout << x << " " << y << " " ...
+      // fout << x << " " << y << " " ... << std::endl;
     }
   }
+  fout.close();
 
   return 0;
 }
