@@ -2,6 +2,7 @@
   acceptance.cxx
 */
 #include <iostream>
+#include <fstream>
 #include <cmath>
 #include <vector>
 #include <random>
@@ -56,6 +57,8 @@ int main(int argc, char* argv[]) {
   std::cout << "Generate " << npoints << " points on the top surface"
 	    << " and " << nparticles << " directions" << std::endl;
 
+  std::ofstream fout("acc.dat");
+
   for (ipoint=0; ipoint<npoints; ipoint++) {
     generatePoint(x, y);
     for (iparticle=0; iparticle<nparticles; ++iparticle) {
@@ -70,6 +73,7 @@ int main(int argc, char* argv[]) {
       if (hit) {
 	countsDetected[costhetaBin] += 1;
       }
+      // fout << x << " " << y << " " ...
     }
   }
 
