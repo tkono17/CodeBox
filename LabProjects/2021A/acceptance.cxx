@@ -7,19 +7,34 @@
 #include <vector>
 #include <random>
 
-void generatePoint(double& x, double& y) {
-  x = -100.0;
-  y = -100.0;
+void generatePoint(double& x, double& y, double w, double l) {
+  x = (double)rand()/32767.0*w;
+  y = (double)rand()/32767.0*l;
+  //0<=x<=w , 0<=y<=lの(x,y)がランダムに作られる
 }
 
-void generateAngles(double& theta, double& phi) {
-  theta = 0.0;
-  phi = 0.0;
+void generateAngles(double& theta, double& phi, double pi) {
+  theta = (double)rand()*pi/2;
+  phi = (double)rand()*2*pi;
+  //0<=theta<=pi/2 , 0<=phi<=2piのtheta,phiがランダムに作られる
 }
 
 bool intersectionAtZ0(double x, double y, double theta, double phi, double d,
-		      double& x0, double& y0) {
-  bool hit=false;
+                      double& x0, double& y0, double w, double l) {
+  bool hit;
+  double costheta=std::cos(theta);
+  double sintheta=std::sin(theta);
+  double cosphi=std::cos(phi);
+  double sinphi=std::sin(phi);
+  x0=x-d*sintheta*cosphi/costheta;
+  y0=y-d*sintheta*sinphi/costheta;
+  //z=0での交点(x0,y0)を求めた
+
+  if(x0>=0 && x0<=w && y0>=0 && y0<=l)
+    hit=true;
+  else
+    hit=false;
+  //交点が0<=x<=w, 0<=y<=lの範囲に入っていれば、trueを返す
   return hit;
 }
 
@@ -30,7 +45,7 @@ int main(int argc, char* argv[]) {
   int iparticle=0;
   double w=60.0;
   double l=80.0;
-  double h=10.0;
+  double h=1.0;
   double d=20.0;
   double x, y;
   double theta, phi;
@@ -60,10 +75,10 @@ int main(int argc, char* argv[]) {
   std::ofstream fout("acc.dat");
 
   for (ipoint=0; ipoint<npoints; ipoint++) {
-    generatePoint(x, y);
+    generatePoint(x, y, w, l);
     for (iparticle=0; iparticle<nparticles; ++iparticle) {
-      generateAngles(theta, phi);
-      hit = intersectionAtZ0(x, y, theta, phi, d, x0, y0);
+      generateAngles(theta, phi, pi);
+      hit = intersectionAtZ0(x, y, theta, phi, d, x0, y0, w, l);
       costheta = std::cos(theta);      
       costhetaBin = (costheta+1.0)/dcostheta;
       if (costhetaBin >= nangles) {
