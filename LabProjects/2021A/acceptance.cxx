@@ -30,19 +30,17 @@ bool intersectionAtZ0(double x, double y, double theta, double phi, double d,
   y0=y-d*sintheta*sinphi/costheta;
   //z=0での交点(x0,y0)を求めた
 
-  if(x0>=0 && x0<=w && y0>=0 && y0<=l){
+  if(x0>=0 && x0<=w && y0>=0 && y0<=l)
     hit=true;
-  }
-  else{
+  else
     hit=false;
-  }
-  //交点が0<=x<=w, 0<=y<=lの範囲に入っていれば、hit=trueを返す
+  //交点が0<=x<=w, 0<=y<=lの範囲に入っていれば、trueを返す
   return hit;
 }
 
 int main(int argc, char* argv[]) {
-  int npoints=10;
-  int nparticles=10;
+  int npoints=1000;
+  int nparticles=1000;
   int ipoint=0;
   int iparticle=0;
   double w=60.0;
@@ -81,7 +79,6 @@ int main(int argc, char* argv[]) {
     for (iparticle=0; iparticle<nparticles; ++iparticle) {
       generateAngles(theta, phi, pi);
       hit = intersectionAtZ0(x, y, theta, phi, d, x0, y0, w, l);
-      std::cout<< hit <<" ";
       costheta = std::cos(theta);      
       costhetaBin = (costheta+1.0)/dcostheta;
       if (costhetaBin >= nangles) {
